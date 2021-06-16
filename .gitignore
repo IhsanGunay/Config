@@ -1,0 +1,3 @@
+zsh/plugins
+zsh/**/*.zwc
+zsh/.zcomp*

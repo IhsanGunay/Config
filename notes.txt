@@ -1,0 +1,1 @@
+# Env variables needed at bootup are loaded at /etc/security/pam_env.conf
