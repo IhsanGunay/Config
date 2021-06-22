@@ -2,3 +2,9 @@ zsh/plugins
 zsh/**/*.zwc
 zsh/.zcomp*
 BraveSoftware/*
+pulse/*
+oni2/*
+qutebrowser/*
+wal/*
+yay/*
+jupyter/*

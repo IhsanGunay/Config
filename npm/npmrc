@@ -1,0 +1,3 @@
+userconfig=/home/ihsan/.config/npm/npmrc
+prefix=/home/ihsan/.local/share
+cache=/home/ihsan/.cache/npm
