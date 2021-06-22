@@ -1,4 +1,0 @@
-#!/bin/sh
-
-. ~/.config/X/xprofile
-ssh-agent dwm
