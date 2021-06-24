@@ -1,10 +1,10 @@
 zsh/plugins
-zsh/**/*.zwc
 zsh/.zcomp*
+zsh/**/*.zwc
+
 BraveSoftware/*
+qutebrowser/*
+jupyter/*
 pulse/*
 oni2/*
-qutebrowser/*
-wal/*
 yay/*
-jupyter/*
