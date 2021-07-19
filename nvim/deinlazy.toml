@@ -5,12 +5,6 @@ hook_add = '''
   nnoremap <silent> [Window]<Space>
   \ :<C-u>Denite file/rec:~/.vim/rc<CR>
 
-  nnoremap <silent><expr> /
-  \ wordcount().chars > 30000 ?
-  \ ":\<C-u>Denite -buffer-name=search -start-filter
-  \  -search line/external\<CR>" :
-  \ ":\<C-u>Denite -buffer-name=search -start-filter -search line\<CR>"
-
   nnoremap <silent><expr> *
   \ wordcount().chars > 30000 ?
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line/external\<CR>" :
@@ -180,7 +174,14 @@ on_event = 'CurserMoved'
 
 [[plugins]]
 repo = 'dense-analysis/ale'
-on_event = 'InsertChange'
+on_ft = ['html', 'css', 'javascript', 'python', 'yaml']
+hook_source = '''
+let g:airline#extensions#ale#enabled = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
+'''
 
 [[plugins]]
 repo = 'wsdjeg/dein-ui.vim'

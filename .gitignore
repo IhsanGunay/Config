@@ -2,9 +2,12 @@ zsh/plugins
 zsh/.zcomp*
 zsh/**/*.zwc
 
-BraveSoftware/*
-qutebrowser/*
-jupyter/*
-pulse/*
-oni2/*
-yay/*
+BraveSoftware/
+qutebrowser/
+__pycache__/
+jupyter/
+pulse/
+oni2/
+yay/
+
+!.gitignore

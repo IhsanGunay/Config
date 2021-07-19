@@ -1,4 +1,5 @@
 #!/bin/sh
 
 . ~/.config/X11/xprofile
-exec dwm
+exec qtile
+#qtile start

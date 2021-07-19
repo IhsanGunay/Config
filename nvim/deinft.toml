@@ -1,4 +1,5 @@
 [ftplugin]
+
 denite = '''
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
@@ -28,6 +29,7 @@ denite = '''
   nnoremap <silent><buffer><expr> <C-l>
   \ denite#do_map('redraw')
 '''
+
 defx = '''
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
@@ -106,6 +108,7 @@ defx = '''
   \ ':<C-u>wincmd w<CR>' :
   \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
 '''
+
 deol = '''
   nnoremap <buffer><silent> [Space]gc
   \ :<C-u>call deol#send('git commit')<CR>
@@ -116,6 +119,7 @@ deol = '''
   nmap <buffer> i <Plug>(deol_edit)
   nmap <buffer> e <Plug>(deol_edit)
 '''
+
 zsh = '''
   inoreabbrev <buffer><expr> g deol#abbrev('g', 'g', 'git')
   inoreabbrev <buffer><expr> a deol#abbrev('git a', 'a', 'add')
@@ -125,6 +129,7 @@ zsh = '''
   inoreabbrev <buffer><expr> p deol#abbrev('git p', 'p', 'push')
   inoreabbrev <buffer><expr> s deol#abbrev('git s', 's', 'status')
 '''
+
 python = '''
 " Indent settings.
 setlocal foldmethod=indent
@@ -135,10 +140,12 @@ setlocal smarttab
 setlocal expandtab
 setlocal nosmartindent
 '''
+
 html = '''
 setlocal includeexpr=substitute(v:fname,'^\\/','','')
 setlocal path+=./;/
 '''
+
 vim = '''
 if line('$') > 1000
   syntax sync minlines=200
@@ -147,7 +154,19 @@ setlocal foldmethod=indent
 setlocal shiftwidth=2 softtabstop=2
 setlocal iskeyword+=:,#
 '''
+
 toml = 'syntax sync minlines=100'
+
+yaml = '''
+setlocal softtabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+setlocal nosmartindent
+set foldmethod=expr
+set foldexpr=getline(v:lnum)=~'^\\s*#'
+set foldlevelstart=99
+'''
+
 help = '''
 setlocal iskeyword+=:
 setlocal iskeyword+=#

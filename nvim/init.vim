@@ -24,13 +24,10 @@ if dein#load_state('~/.local/share/dein')
  call dein#save_state()
 endif
 
-if dein#check_install()
-    call dein#install()
-endif
-
 filetype plugin indent on
 syntax on
 colorscheme nord
+hi Folded ctermfg=3 ctermbg=None
 
 nmap <Space> [Space]
 nmap s [Window]
@@ -44,8 +41,8 @@ inoremap jj <ESC>
 
 nnoremap [Space] <Nop>
 nnoremap [Window] <Nop>
-nnoremap <silent> [Space]ev :<C-u>edit ~/.config/nvim/init.vim<CR>
-nnoremap <silent> [Window]p :<C-u>vsplit<CR>:wincmd w<CR>
+nnoremap <silent> [Window]f :<C-u>edit ~/.config/nvim/init.vim<CR>
+nnoremap <silent> [Window]w :<C-u>vsplit<CR>:wincmd w<CR>
 nnoremap <silent> [Window]o :<C-u>only<CR>
 nnoremap Q o<Esc>k
 nnoremap <C-s> :%s//g<Left><Left>
@@ -61,3 +58,6 @@ cnoremap WQ! wq!
 cnoremap Wq! wq!
 cnoremap wQ! wq!
 cnoremap W!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
+au Bufread ~/.config/nvim/* let g:dein#auto_recache=1
+au Bufwritepost ~/.config/qtile/config.py !xdotool key super+ctrl+r
