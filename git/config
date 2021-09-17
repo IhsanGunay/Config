@@ -3,3 +3,5 @@
 	name = Ihsan Gunay
 [init]
 	defaultBranch = main
+[credential]
+	helper = /usr/bin/pass-git-helper

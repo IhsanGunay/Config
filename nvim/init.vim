@@ -1,5 +1,4 @@
 " Ihsan's nvimrc
-"
 set wildmenu wildmode=longest,list,full
 set ignorecase smartcase nohlsearch
 set clipboard+=unnamedplus

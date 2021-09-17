@@ -499,6 +499,8 @@ shell:
 
 key_bindings:
   - { key: Period,           mods: Alt,                                 action: ToggleViMode            }
+  - { key: K,                mods: Alt,                                 action: ScrollLineUp            }
+  - { key: J,                mods: Alt,                                 action: ScrollLineDown          }
   - { key: V,                mods: Alt,                                 action: Paste                   }
   - { key: L,                mods: Control,                             action: ClearLogNotice          }
   - { key: L,                mods: Control,         mode: ~Vi|~Search,  chars: "\x0c"                   }
@@ -567,8 +569,8 @@ key_bindings:
 
   - { key: V,                mods: Control|Shift,   mode: ~Vi,          action: Paste                   }
   - { key: C,                mods: Control|Shift,                       action: Copy                    }
-  - { key: K,                mods: Alt,                                 action: IncreaseFontSize        }
-  - { key: J,                mods: Alt,                                 action: DecreaseFontSize        }
+  - { key: K,                mods: Alt|Shift,                           action: IncreaseFontSize        }
+  - { key: J,                mods: Alt|Shift,                           action: DecreaseFontSize        }
   - { key: Key0,             mods: Control,                             action: ResetFontSize           }
   - { key: Equals,           mods: Control,                             action: IncreaseFontSize        }
   - { key: Plus,             mods: Control,                             action: IncreaseFontSize        }
