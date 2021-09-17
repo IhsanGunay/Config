@@ -1,5 +1,4 @@
 #!/bin/sh
 
 . ~/.config/X11/xprofile
-exec qtile
-#qtile start
+exec qtile start

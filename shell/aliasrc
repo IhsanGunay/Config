@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+    cp="cp -iv" \
+    mv="mv -iv" \
+    rm="rm -vI" \
+    mkd="mkdir -pv" \
+
+# Colorize commands when possible.
+alias \
+    ls="ls -hN --color=auto --group-directories-first" \
+    grep="grep --color=auto" \
+    diff="diff --color=auto" \
+    ccat="highlight --out-format=ansi" \
+
+# ls variants
+alias \
+    lsa="ls -A" \
+    lsl="ls -l" \
+    lsla="ls -lA" \
+    lsal="ls -lA" \
+    cls="clear && ls" \
+    clsa="cls -A" \
+    clsl="cls -l" \
+    clsal="cls -Al" \
+    clsla="cls -Al" \
+
+# Abbreviations
+alias \
+    e="$EDITOR" \
+    se="sudoedit" \
+    p="sudo pacman" \
+    y="yay" \
+    z="zathura" \
+    sd="shutdown now" \
+    rb="reboot" \
+    ka="killall" \
+    c="clear" \

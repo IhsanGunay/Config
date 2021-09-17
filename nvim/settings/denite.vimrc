@@ -1,5 +1,6 @@
 " Denite Settings
-call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!.git'])
+"call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '.config'])
+" \'--glob', '!.git'])
 
 call denite#custom#var('grep', 'command', ['rg'])
 call denite#custom#var('grep', 'default_opts', ['--hidden', '--vimgrep', '--heading', '-S'])
@@ -10,9 +11,28 @@ call denite#custom#var('grep', 'final_opts', [])
 
 call denite#custom#var('buffer', 'date_format', '')
 
+let s:menus = {}
+let s:menus.zsh = {
+  \ 'description': 'Edit your import zsh configuration'
+  \ }
+let s:menus.zsh.file_candidates = [
+  \ ['zshrc', '~/.config/zsh/.zshrc'],
+  \ ['zshenv', '~/.zshenv'],
+  \ ]
+let s:menus.my_commands = {
+  \ 'description': 'Example commands'
+  \ }
+let s:menus.my_commands.command_candidates = [
+  \ ['Split the window', 'vnew'],
+  \ ['Open zsh menu', 'Denite menu:zsh'],
+  \ ['Format code', 'FormatCode', 'go,python'],
+  \ ]
+
+call denite#custom#var('menu', 'menus', s:menus)
+
 let s:denite_options = {'default' : {
 \ 'split': 'floating',
-\ 'start_filter': 1,
+\ 'start_filter': 0,
 \ 'auto_resize': 1,
 \ 'source_names': 'short',
 \ 'prompt': 'λ ',

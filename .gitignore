@@ -1,11 +1,15 @@
 zsh/plugins
 zsh/.zcomp*
-zsh/**/*.zwc
+*.zwc
 
 BraveSoftware/
 qutebrowser/
+spotify-tui/
 __pycache__/
+chromium/
 jupyter/
+spotify/
+systemd/
 pulse/
 oni2/
 yay/

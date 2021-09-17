@@ -27,15 +27,14 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = "alacritty"
+browser = "vieb"
 
 keys = [
-    # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -43,8 +42,6 @@ keys = [
     Key([mod], "space", lazy.layout.next(),
         desc="Move window focus to other window"),
 
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
         desc="Move window to the left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(),
@@ -53,8 +50,6 @@ keys = [
         desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
 
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
     Key([mod, "control"], "h", lazy.layout.grow_left(),
         desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(),
@@ -62,57 +57,75 @@ keys = [
     Key([mod, "control"], "j", lazy.layout.grow_down(),
         desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
+    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "z", lazy.next_layout(), desc="Toggle between layouts"),
 
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "w", lazy.spawn(browser), desc="Launch browser"),
+    Key([mod], "c", lazy.spawncmd(),
+        desc="Spawn a command using a prompt widget"),
+
+    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod], "Tab", lazy.group.next_window(), desc="Toggle between windows"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
+
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([], "XF86AudioPause", lazy.spawn("playerctl pause")),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
+
+    Key([], "XF86AudioRaiseVolume",
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +2%"),
+        desc="Raise volume"),
+    Key([], "XF86AudioLowerVolume",
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -2%"),
+        desc="Lower volume"),
 ]
 
-groups = [Group(i) for i in "asd"]
+groups = []
+groups.extend([
+    Group('io', spawn='alacritty', layout='columns', persist=False),
+    Group('www', spawn='vieb', layout='max', persist=False),
+    Group('music', spawn=['spotify', 'alacritty -e spt'],
+          layout='max', persist=False),
+])
 
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc="Switch to group {}".format(i.name)),
+keys.extend([
+    Key([mod], "a", lazy.group['io'].toscreen(),
+        desc="Switch to group io"),
+    Key([mod, "shift"], 'a', lazy.window.togroup('io', switch_group=True),
+        desc='Switch to & move focused window to group io'),
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
-    ])
+    Key([mod], "s", lazy.group['www'].toscreen(),
+        desc="Switch to group www"),
+    Key([mod, "shift"], 's', lazy.window.togroup('www', switch_group=True),
+        desc='Switch to & move focused window to group www'),
+
+    Key([mod], "d", lazy.group['music'].toscreen(),
+        desc="Switch to group music"),
+    Key([mod, "shift"], 'd', lazy.window.togroup('music', switch_group=True),
+        desc='Switch to & move focused window to group music'),
+])
 
 layouts = [
     layout.Columns(border_focus_stack='#d75f5f'),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
-     layout.Stack(num_stacks=2),
-     layout.Bsp(),
-     layout.Matrix(),
-     #layout.MonadTall(),
-     #layout.MonadWide(),
-     #layout.RatioTile(),
-     layout.Tile(),
-     layout.TreeTab(),
-     #layout.VerticalTile(),
-     #layout.Zoomy(),
+    # layout.Stack(num_stacks=2),
+    # layout.Bsp(),
+    # layout.Matrix(),
+    # layout.MonadTall(),
+    # layout.MonadWide(),
+    # layout.RatioTile(),
+    # layout.Tile(),
+    # layout.TreeTab(),
+    # layout.VerticalTile(),
+    # layout.Zoomy(),
 ]
 
 widget_defaults = dict(
@@ -122,38 +135,55 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+# Nord colors
+colors = ['#2E3440', '#3B4252',
+          '#434C5E', '#4C566A',
+          '#D8DEE9', '#E5E9F0',
+          '#ECEFF4', '#8FBCBB',
+          '#88C0D0', '#81A1C1',
+          '#5E81AC', '#BF616A',
+          '#D08770', '#EBCB8B',
+          '#A3BE8C', '#B48EAD']
+
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        'launch': ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
+                widget.GroupBox(
+                    highlight_method='text',
+                    active=colors[8],
+                    this_current_screen_border=colors[13],
+                    this_screen_border=colors[13],
                 ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-                widget.QuickExit(),
+                widget.Prompt(),
+                widget.Mpris2(
+                    name='spotify',
+                    objname="org.mpris.MediaPlayer2.spotify",
+                    display_metadata=['xesam:title', 'xesam:artist'],
+                    scroll_chars=None,
+                    stop_pause_text='',
+                    foreground=colors[5],
+                    **widget_defaults
+                ),
+                widget.Spacer(),
+                widget.Clock(
+                    format='%m-%d-%y',
+                    foreground=colors[15]),
+                widget.Clock(
+                    format='%a',
+                    foreground=colors[14]),
+                widget.Clock(
+                    format='%I:%M %p',
+                    foreground=colors[13]),
+                widget.Volume(
+                    get_volume_command='getvolume',
+                    foreground=colors[8],
+                ),
             ],
             24,
+            background=colors[0] + '.00'  # opacity
         ),
     ),
-]
-
-# Drag floating layouts.
-mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
 dgroups_key_binder = None

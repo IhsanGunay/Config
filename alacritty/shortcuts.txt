@@ -1,0 +1,51 @@
+copy-paste 
+<C-S-c> copy
+<C-S-v> paste (or replace visual selected)
+
+manage running processes
+<C-c>   break out of a command or process on a terminal. This will stop a running program immediately.
+<C-z>   send a running program in the background
+<C-d>   If you are using an SSH connection, it will be closed. If you are using a terminal directly, it will be closed
+
+control what appears on the screen
+<C-l>   clear terminal screen  
+<C-s>   Stop all output to the screen.
+<C-q>   Resume output to the screen after stopping it with Ctrl+S.
+
+Moving the Cursor
+<C-a>   or Home: move cursor to beginning of line 
+<C-e>   or End:  ""             end       ""         
+<C-xx>   Move between the beginning of the line and the current position of the cursor. 
+<A-b>   go left 1 word 
+<C-b>   ""        char (like left-arrow) 
+<A-f>   go right 1 word 
+<C-f>   ""         char (like right-arrow) 
+
+Cutting and Pasting
+<C-u>   erases everything from the current cursor position to the beginning of the line
+<C-k>   erases everything from the current cursor position to the end of the line
+<C-w>   erase the word preceding to the cursor position. 
+<C-y>    paste the erased text that you saw with Ctrl + W, Ctrl + U and Ctrl + K shortcuts  
+
+Deleting Text
+<C-d>    or Delete: Delete the character under the cursor
+<A-d>    Delete all characters after the cursor on the current line.
+<C-h>    Backspace: Delete the character before the cursor.
+
+Fixing Typos
+<A-t>   Swap the current word with the previous word.
+<C-t>   Swap the last two characters before the cursor with each other.
+<C-_>   Undo your last key press. You can repeat this to undo multiple times.
+
+Capitalizing Char
+<A-u>   Capitalize every character from the cursor to the end of the current word
+<A-l>   Uncapitalize every character from the cursor to the end of the current word
+<A-c>   Capitalize the character under the cursor. Your cursor will move to the end of the current word.
+
+Command History
+<C-p>    like up-arrow
+<C-n>    like down-arrow
+<A-r>    revert any changes to a command you’ve pulled from your history if you’ve edited it.
+<C-r>    search in your command history.
+<C-o>    Run a command you found with Ctrl+R  
+<C-g>    Leave history searching mode without running a command

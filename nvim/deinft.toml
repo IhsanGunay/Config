@@ -1,9 +1,11 @@
 [ftplugin]
 
 denite = '''
-  " Define mappings
   nnoremap <silent><buffer><expr> <CR>
   \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+
   nnoremap <silent><buffer><expr> a
   \ denite#do_map('choose_action')
   nnoremap <silent><buffer><expr> d
@@ -12,18 +14,28 @@ denite = '''
   \ denite#do_map('do_action', 'edit')
   nnoremap <silent><buffer><expr> p
   \ denite#do_map('do_action', 'preview')
+
   nnoremap <silent><buffer><expr> N
   \ denite#do_map('do_action', 'new')
   nnoremap <silent><buffer><expr> q
   \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> <Esc>
+  \ denite#do_map('quit')
+
   nnoremap <silent><buffer><expr> '
   \ denite#do_map('quick_move')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> <Space>
   \ denite#do_map('toggle_select').'j'
   nnoremap <silent><buffer><expr> r
   \ denite#do_map('do_action', 'quickfix')
+
+  nnoremap <silent><buffer><expr> <C-t>
+  \ denite#do_map('do_action', 'tabopen')
+  nnoremap <silent><buffer><expr> <C-v>
+  \ denite#do_map('do_action', 'vsplit')
+  nnoremap <silent><buffer><expr> <C-h>
+  \ denite#do_map('do_action', 'split')
+
   nnoremap <silent><buffer><expr> <C-r>
   \ denite#do_map('restore_sources')
   nnoremap <silent><buffer><expr> <C-l>
@@ -31,82 +43,76 @@ denite = '''
 '''
 
 defx = '''
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-  \ defx#async_action('open')
-  nnoremap <silent><buffer><expr> c
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> !
-  \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> &
-  \ defx#do_action('execute_command', ['', 'async'])
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
+  setlocal nonumber norelativenumber
+
+  nnoremap <silent><buffer><expr> h
+  \ defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> l
-  \ defx#do_action('open')
+  \ defx#is_directory() ?
+  \ defx#do_action('open_directory') :
+  \ defx#do_action('multi', ['drop', 'quit'])
+  " \ defx#do_action('drop')
+
+  nnoremap <silent><buffer><expr> ~
+  \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> \
+  \ defx#do_action('cd', getcwd())
+
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#do_action('multi', ['quit'])
   nnoremap <silent><buffer><expr> E
   \ defx#do_action('open', 'vsplit')
   nnoremap <silent><buffer><expr> P
   \ defx#do_action('preview')
-  nnoremap <silent><buffer><expr> o
-  \ defx#do_action('open_tree', ['nested', 'toggle'])
-  nnoremap <silent><buffer><expr> O
-  \ defx#do_action('open_tree', 'recursive')
+
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
+
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove_trash')
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+
   nnoremap <silent><buffer><expr> K
   \ defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N
   \ defx#do_action('new_file')
   nnoremap <silent><buffer><expr> M
   \ defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C
-  \ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S
-  \ defx#do_action('toggle_sort', 'Time')
-  nnoremap <silent><buffer><expr> se
-  \ defx#do_action('add_session')
-  nnoremap <silent><buffer><expr> sl
-  \ defx#do_action('load_session')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove_trash')
-  nnoremap <silent><buffer><expr> r
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> x
-  \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> >
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> <
-  \ defx#do_action('change_ignored_files')
+
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> &
+  \ defx#do_action('execute_command', ['', 'async'])
+
+  nnoremap <silent><buffer><expr> o
+  \ defx#do_action('open_tree', ['nested', 'toggle'])
+  nnoremap <silent><buffer><expr> O
+  \ defx#do_action('open_tree', 'recursive')
+
   nnoremap <silent><buffer><expr> .
   \ defx#do_action('repeat')
   nnoremap <silent><buffer><expr> yy
   \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-  \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> \
-  \ defx#do_action('cd', getcwd())
+  nnoremap <silent><buffer><expr> <ESC>
+  \ defx#do_action('quit')
   nnoremap <silent><buffer><expr> q
   \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-  \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-  \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-  \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-  \ line('.') == 1 ? 'G' : 'k'
+
   nnoremap <silent><buffer><expr> <C-l>
   \ defx#do_action('redraw')
   xnoremap <silent><buffer><expr> <CR>
   \ defx#do_action('toggle_select_visual')
   nnoremap <silent><buffer><expr> <C-g>
   \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-  \ ':<C-u>wincmd w<CR>' :
-  \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
 '''
 
 deol = '''
@@ -131,44 +137,57 @@ zsh = '''
 '''
 
 python = '''
-" Indent settings.
-setlocal foldmethod=indent
-setlocal softtabstop=4
-setlocal shiftwidth=4
-setlocal textwidth=80
-setlocal smarttab
-setlocal expandtab
-setlocal nosmartindent
+  setlocal foldmethod=indent
+  setlocal foldlevel=10
+  setlocal softtabstop=4
+  setlocal shiftwidth=4
+  setlocal textwidth=80
+  setlocal smarttab
+  setlocal expandtab
+  setlocal nosmartindent
 '''
 
 html = '''
-setlocal includeexpr=substitute(v:fname,'^\\/','','')
-setlocal path+=./;/
+  setlocal includeexpr=substitute(v:fname,'^\\/','','')
+  let b:AutoPairs = AutoPairsDefine({"<":">"})
+  setlocal path+=./;/
 '''
 
 vim = '''
-if line('$') > 1000
-  syntax sync minlines=200
-endif
-setlocal foldmethod=indent
-setlocal shiftwidth=2 softtabstop=2
-setlocal iskeyword+=:,#
+  if line('$') > 1000
+    syntax sync minlines=200
+  endif
+  setlocal foldmethod=indent
+  setlocal shiftwidth=2 softtabstop=2
+  setlocal iskeyword+=:,#
+  let b:AutoPairs = AutoPairsDefine({"<":">"})
 '''
 
 toml = 'syntax sync minlines=100'
 
 yaml = '''
-setlocal softtabstop=2
-setlocal shiftwidth=2
-setlocal expandtab
-setlocal nosmartindent
-set foldmethod=expr
-set foldexpr=getline(v:lnum)=~'^\\s*#'
-set foldlevelstart=99
+  setlocal softtabstop=2
+  setlocal shiftwidth=2
+  setlocal expandtab
+  setlocal nosmartindent
+  setlocal foldmethod=expr
+  setlocal foldexpr=getline(v:lnum)=~'^\\s*#'
+  setlocal foldlevelstart=99
 '''
 
 help = '''
-setlocal iskeyword+=:
-setlocal iskeyword+=#
-setlocal iskeyword+=-
+  setlocal iskeyword+=:
+  setlocal iskeyword+=#
+  setlocal iskeyword+=-
+  setlocal cursorline
+  setlocal winwidth=78
+
+  nnoremap <buffer>     <ESC>     <C-w>q
+  nnoremap <buffer>     J         <C-]>
+  nnoremap <buffer>     K         <C-T>
+  nnoremap <buffer>     L         /\|\zs\S\+\ze\|<CR>
+  nnoremap <buffer>     H         ?\|\zs\S\+\ze\|<CR>
+  nnoremap <buffer>     o         /'\l\{2,\}'<CR>
+  nnoremap <buffer>     O         ?'\l\{2,\}'<CR>
 '''
+# vim: ft=vim

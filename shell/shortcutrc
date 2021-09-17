@@ -1,0 +1,16 @@
+# vim: filetype=sh
+
+# Quick jumps
+alias cdc="cd ${XDG_CONFIG_HOME:-$HOME/.config}" \
+      cdn="cd ${XDG_CONFIG_HOME:-$HOME/.config}/nvim" \
+      cdz="cd $ZDOTDIR" \
+      cdd="cd ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}" \
+      cdh="cd $HOME" \
+      cdp="cd $HOME/Projects" \
+      cds="cd $HOME/.local/share" \
+      cdb="cd $HOME/.local/bin" \
+
+# Quick edits
+alias cfz="$EDITOR $ZDOTDIR/.zshrc" \
+      cfv="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.vim" \
+      cfx="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xprofile" \
