@@ -8,6 +8,7 @@ spotify-tui/
 __pycache__/
 chromium/
 jupyter/
+ipython/
 spotify/
 systemd/
 pulse/

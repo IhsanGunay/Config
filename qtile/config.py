@@ -89,10 +89,10 @@ keys = [
 
 groups = []
 groups.extend([
-    Group('io', spawn='alacritty', layout='columns', persist=False),
-    Group('www', spawn='vieb', layout='max', persist=False),
+    Group('io', spawn='alacritty', layout='columns'),
+    Group('www', spawn='vieb', layout='max'),
     Group('music', spawn=['spotify', 'alacritty -e spt'],
-          layout='max', persist=False),
+          layout='max'),
 ])
 
 keys.extend([

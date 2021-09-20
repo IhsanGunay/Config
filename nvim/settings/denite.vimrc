@@ -12,26 +12,28 @@ call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('buffer', 'date_format', '')
 
 let s:menus = {}
+let s:menus.vim = {
+  \ 'description': 'vim configuration files'
+  \ }
+let s:menus.vim.file_candidates = [
+  \ ['init',        '~/.config/nvim/init.vim'],
+  \ ['deinlazy',    '~/.config/nvim/deinlazy.toml'],
+  \ ['dein',        '~/.config/nvim/dein.toml'],
+  \ ]
 let s:menus.zsh = {
-  \ 'description': 'Edit your import zsh configuration'
+  \ 'description': 'zsh configuration files'
   \ }
 let s:menus.zsh.file_candidates = [
-  \ ['zshrc', '~/.config/zsh/.zshrc'],
-  \ ['zshenv', '~/.zshenv'],
-  \ ]
-let s:menus.my_commands = {
-  \ 'description': 'Example commands'
-  \ }
-let s:menus.my_commands.command_candidates = [
-  \ ['Split the window', 'vnew'],
-  \ ['Open zsh menu', 'Denite menu:zsh'],
-  \ ['Format code', 'FormatCode', 'go,python'],
+  \ ['zshrc',      '~/.config/zsh/.zshrc'],
+  \ ['profile',    '~/.config/shell/profile'],
+  \ ['shortcutrc', '~/.config/shell/shortcutrc'],
+  \ ['aliasrc',    '~/.config/shell/aliasrc'],
   \ ]
 
 call denite#custom#var('menu', 'menus', s:menus)
 
 let s:denite_options = {'default' : {
-\ 'split': 'floating',
+\ 'split': 'top',
 \ 'start_filter': 0,
 \ 'auto_resize': 1,
 \ 'source_names': 'short',
@@ -77,38 +79,5 @@ function! s:denite_filter_my_settings() abort
   inoremap <silent><buffer><expr> <C-v>
   \ denite#do_map('do_action', 'vsplit')
   inoremap <silent><buffer><expr> <C-h>
-  \ denite#do_map('do_action', 'split')
-endfunction
-
-" Define mappings while in denite window
-"   <CR>        - Opens currently selected file
-"   q or <Esc>  - Quit Denite window
-"   d           - Delete currenly selected file
-"   p           - Preview currently selected file
-"   <C-o> or i  - Switch to insert mode inside of filter prompt
-"   <C-t>       - Open currently selected file in a new tab
-"   <C-v>       - Open currently selected file a vertical split
-"   <C-h>       - Open currently selected file in a horizontal split
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> <Esc>
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <C-o>
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <C-t>
-  \ denite#do_map('do_action', 'tabopen')
-  nnoremap <silent><buffer><expr> <C-v>
-  \ denite#do_map('do_action', 'vsplit')
-  nnoremap <silent><buffer><expr> <C-h>
   \ denite#do_map('do_action', 'split')
 endfunction
