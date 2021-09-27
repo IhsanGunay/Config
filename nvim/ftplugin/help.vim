@@ -7,6 +7,7 @@ setlocal cursorline
 setlocal winwidth=78
 
 nnoremap <buffer>     <ESC>     <C-w>q
+nnoremap <buffer>     gl        gO
 nnoremap <buffer>     J         <C-]>
 nnoremap <buffer>     K         <C-T>
 nnoremap <buffer>     L         /\|\zs\S\+\ze\|<CR>

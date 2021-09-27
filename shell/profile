@@ -12,6 +12,7 @@ export BROWSER="vieb"
 export READER="zathura"
 
 # Set config file locations
+export NEXTWORD_DATA_PATH="$XDG_DATA_HOME/nextword"
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"

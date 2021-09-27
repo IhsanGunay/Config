@@ -21,11 +21,12 @@ if dein#load_state('~/.local/share/dein')
   call dein#begin('~/.local/share/dein')
   call dein#load_toml(s:hare, {'lazy': 0})
   call dein#load_toml(s:tortoise, {'lazy': 1})
+  " call dein#local('~/.config/nvim/rplugin/python3/denite')
   call dein#end()
   call dein#save_state()
 endif
 
-if !has('vim_starting') && dein#check_install()
+if dein#check_install()
   call dein#install()
 endif
 
@@ -40,54 +41,45 @@ nnoremap [Space] <Nop>
 nnoremap [Window] <Nop>
 nnoremap ZZ <Nop>
 
-inoremap jj <ESC>
+inoremap JJ <ESC>
 
 nnoremap [Window]v   <Cmd>vsplit<CR>
 nnoremap [Window]o   <Cmd>only<CR>
 nnoremap [Window]s   <Cmd>bnext<CR>
+nnoremap [Window]h   <Cmd>bprevious<CR>
 nnoremap [Window]d   <Cmd>bdelete<CR>
 nnoremap <C-s>       <Cmd>write<CR>
 nnoremap <C-e>       <Cmd>quit<CR>
-nnoremap <C-h>       <C-w>h
+" nnoremap <C-e>e      <Cmd>quit!<CR>
 nnoremap <C-l>       <C-w>l
-nnoremap <C-M-h>     <C-w><
-nnoremap <C-M-l>     <C-w>>
+nnoremap <C-h>       <C-w>h
+nnoremap <M-l>       <C-w>>
 nnoremap <M-h>       :vert help 
 nnoremap <M-s>       :%s//gc<Left><Left><Left>
 nnoremap [Space]h    q:k
-nnoremap [Space]s    <Cmd>source ~/.config/nvim/init.vim<CR>
+nnoremap [Space]I    <Cmd>call dein#install()<CR>
 nnoremap Q           o<Esc>k
 nnoremap M           zA
 nnoremap >           >>
 nnoremap <           <<
-" nnoremap <Tab>       <Cmd>wincmd w<CR>
-" nnoremap J           <C-y>
-" nnoremap K           <C-e>
 
 xnoremap >           >gv
 xnoremap <           <gv
 
-cnoremap Q           q
-cnoremap W           w
-cnoremap WQ          wq
-cnoremap Wq          wq
-cnoremap wQ          wq
-cnoremap WQ!         wq!
-cnoremap Wq!         wq!
-cnoremap wQ!         wq!
 cnoremap w!!         silent! write !sudo tee %
 cnoremap W!!         silent! write !sudo tee %
-cnoremap <C-h>       <Left>
-cnoremap <C-a>       <Home>
-cnoremap <C-e>       <End>
-cnoremap <C-h>       <Left>
-cnoremap <C-l>       <Right>
 cnoremap <C-j>       <Down>
 cnoremap <C-k>       <Up>
-cnoremap <C-y>       <C-r>*
+cnoremap <C-v>       <C-r>+
+" cnoremap <C-y>       <C-r>*
 
 tnoremap <ESC>       <C-\><C-n>
-tnoremap <C-y>       <C-r>*
+tnoremap <C-h>       <Left>
+tnoremap <C-l>       <Right>
+tnoremap <C-j>       <Down>
+tnoremap <C-k>       <Up>
+tnoremap <C-v>       <C-r>+
+" tnoremap <C-y>       <C-r>*
 
 augroup helpers
   au!

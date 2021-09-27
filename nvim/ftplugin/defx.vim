@@ -1,7 +1,10 @@
 " defx.vim
 
-setlocal nonumber norelativenumber
+setlocal nonumber
+setlocal norelativenumber
 
+nnoremap <silent><buffer><expr> k
+\ line('.') == 2 ? '' : 'k'
 nnoremap <silent><buffer><expr> h
 \ defx#do_action('cd', ['..'])
 nnoremap <silent><buffer><expr> l
@@ -65,7 +68,8 @@ nnoremap <silent><buffer><expr> q
 
 nnoremap <silent><buffer><expr> <C-l>
 \ defx#do_action('redraw')
-xnoremap <silent><buffer><expr> <CR>
-\ defx#do_action('toggle_select_visual')
 nnoremap <silent><buffer><expr> <C-g>
 \ defx#do_action('print')
+
+xnoremap <silent><buffer><expr> <CR>
+\ defx#do_action('toggle_select_visual')

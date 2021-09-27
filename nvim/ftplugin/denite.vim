@@ -1,7 +1,19 @@
 " denite.vim
 
-nnoremap <silent><buffer><expr> <CR>
-\ denite#do_map('do_action')
+if b:denite.buffer_name == 'complete'
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action', 'execute')
+  nnoremap <silent><buffer><expr> <Tab>
+  \ denite#do_map('do_action', 'complete')
+  nnoremap <silent><buffer><expr> l
+  \ denite#do_map('do_action', 'complete')
+else
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> l
+  \ denite#do_map('do_action')
+endif
+
 nnoremap <silent><buffer><expr> i
 \ denite#do_map('open_filter_buffer')
 

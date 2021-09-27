@@ -2,26 +2,28 @@
 repo = 'Shougo/denite.nvim'
 on_cmd = 'Denite'
 hook_add = '''
-  nnoremap [Window]m <Cmd>Denite menu
-  \ -buffer-name=menu<CR>
+  nnoremap [Window]m 
+  \ <Cmd>Denite menu -buffer-name=menu<CR>
 
-  nnoremap [Window]f <Cmd>Denite menu:vim
-  \ -buffer-name=menu<CR>
+  nnoremap [Window]f 
+  \ <Cmd>Denite menu:vim -buffer-name=menu<CR>
 
-  nnoremap [Window]l <Cmd>Denite buffer<CR>
+  nnoremap [Window]l 
+  \ <Cmd>Denite buffer<CR>
 
-  nnoremap [Window]d <Cmd>Denite file/rec<CR>
+  nnoremap [Window]d 
+  \ <Cmd>Denite file/rec<CR>
 
-  nnoremap [Space]i <Cmd>DeniteCursorWord help<CR>
+  nnoremap H 
+  \ <Cmd>Denite help/superior -buffer-name=search<CR>
 
-  nnoremap [Space]c <Cmd>Denite change jump<CR>
+  cnoremap <silent> <Tab> 
+  \ <C-C>:Denite command/complete -buffer-name=complete<CR>
 
-  nnoremap [Space]g
-  \ <Cmd>Denite -buffer-name=search
-  \ -no-empty grep<CR>
+  nnoremap [Space]g <Cmd>Denite grep<CR>
 
   nnoremap [Space]n
-  \ <Cmd>Denite -buffer-name=search -resume<CR>
+  \ <Cmd>Denite -buffer-name=search -resume -no-start-filter<CR>
 
   xnoremap <silent> *
   \ "qy:Denite -input=`@q` -buffer-name=search -search line<CR>
@@ -49,9 +51,10 @@ hook_post_source = '''
   \ 'vertical_preview': 1,
   \ 'auto_cd': 1,
   \ 'toggle': 1,
-  \ 'winwidth': 30,
+  \ 'winwidth': 20,
   \ 'split': 'vertical',
   \ 'direction': 'topleft',
+  \ 'root_marker': '',
   \ })
 '''
 
@@ -93,13 +96,15 @@ nnoremap [Window]r <Cmd>IronRepl<CR>
 hook_source = '''
   lua require('ironrc')
 
-  nnoremap [Space]is     <Plug>(iron-send-motion)
-  nnoremap [Space]if     magg<Plug>(iron-send-motion)G`a
-  nnoremap [Space]il     <Plug>(iron-send-line)
-  nnoremap [Space]i<CR>  <Plug>(iron-cr)
-  nnoremap [Space]ii     <Plug>(iron-interrupt)
-  nnoremap [Space]ic     <Plug>(iron-clear)
-  nnoremap [Space]iq     <Plug>(iron-exit)
+  imap <C-S>  <Cmd>lua require("iron").core.send_line()<CR>
+  xmap ;s     <Plug>(iron-visual-send)
+  nmap ;s     <Plug>(iron-send-motion)
+  nmap ;f     magg<Plug>(iron-send-motion)G`a
+  nmap ;l     <Plug>(iron-send-line)
+  nmap ;<CR>  <Plug>(iron-cr)
+  nmap ;i     <Plug>(iron-interrupt)
+  nmap ;c     <Plug>(iron-clear)
+  nmap ;q     <Plug>(iron-exit)
 '''
 
 [[plugins]]
@@ -183,6 +188,63 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'rhysd/vim-operator-surround'
+depends = 'vim-operator-user'
+on_map = {n = '<Plug>', x = '<Plug>', o = '<Plug>'}
+hook_add = '''
+  map <silent> ;a <Plug>(operator-surround-append)
+  map <silent> ;d <Plug>(operator-surround-delete)
+  map <silent> ;r <Plug>(operator-surround-replace)
+
+  nmap <silent> ;dd <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
+  nmap <silent> ;rr <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
+
+  nmap <silent> ;db <Plug>(operator-surround-delete)<Plug>(textobj-between-a)
+  nmap <silent> ;rb <Plug>(operator-surround-replace)<Plug>(textobj-between-a)
+'''
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-anyblock'
+depends = 'vim-textobj-user'
+on_map = {x = '<Plug>', o = '<Plug>'}
+hook_add = '''
+  xmap ab <Plug>(textobj-anyblock-a)
+  omap ab <Plug>(textobj-anyblock-a)
+
+  xmap ib <Plug>(textobj-anyblock-i)
+  omap ib <Plug>(textobj-anyblock-i)
+'''
+
+[[plugins]]
+repo = 'kana/vim-textobj-line'
+depends = 'vim-textobj-user'
+on_map = {x = '<Plug>', o = '<Plug>'}
+hook_add = '''
+  xmap al <Plug>(textobj-line-a)
+  omap al <Plug>(textobj-line-a)
+
+  xmap il <Plug>(textobj-line-i)
+  omap il <Plug>(textobj-line-i)
+'''
+[[plugins]]
+repo = 'thinca/vim-textobj-between'
+depends = 'vim-textobj-user'
+on_map = {x = '<Plug>', o = '<Plug>'}
+hook_add = '''
+  xmap af <Plug>(textobj-between-a)
+  omap af <Plug>(textobj-between-a)
+
+  xmap if <Plug>(textobj-between-i)
+  omap if <Plug>(textobj-between-i)
+'''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+on_event = 'BufEnter'
+hook_post_update = 'TSUpdate'
+hook_source = "lua require('treerc')"
+
+[[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
@@ -213,6 +275,12 @@ on_ft = ['zsh', 'sh']
 [[plugins]]
 repo = 'Shougo/deoplete-lsp'
 depends = 'nvim-lsp'
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
 
 [[plugins]]
 repo = 'kristijanhusak/defx-git'
