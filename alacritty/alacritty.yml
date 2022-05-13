@@ -13,6 +13,7 @@ window:
 
   dynamic_title: true
   title: Alacritty
+  opacity: 0
 
 # scrolling:
   # history: 10000
@@ -224,8 +225,6 @@ font:
   #   `- { index: 16, color: '#ff00ff' }`
   #
   #indexed_colors: []
-
-background_opacity: 0
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

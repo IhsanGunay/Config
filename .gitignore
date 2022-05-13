@@ -1,3 +1,4 @@
+zoomus.conf
 zsh/plugins
 zsh/.zcomp*
 *.zwc
@@ -11,6 +12,7 @@ jupyter/
 ipython/
 spotify/
 systemd/
+dconf/
 pulse/
 Vieb/
 oni2/

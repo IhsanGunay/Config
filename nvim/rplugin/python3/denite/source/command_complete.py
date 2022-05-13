@@ -28,10 +28,12 @@ class Source(Base):
             } for x in self.vim.call(
                 'getcompletion', cinput, 'cmdline')]
 
-        if not candidates:
+        ccount = len(candidates)
+
+        if ccount == 0:
             candidates.append({'word': cinput})
             self.kind.default_action = 'abort'
-        elif len(candidates) == 1:
+        elif ccount == 1:
             self.kind.default_action = 'complete'
         else:
             self.kind.default_action = 'execute'

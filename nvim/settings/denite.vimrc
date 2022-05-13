@@ -22,6 +22,7 @@ let s:menus.zsh = {
   \ 'description': 'zsh configuration files'
   \ }
 let s:menus.zsh.file_candidates = [
+  \ ['settings',   '~/.config/zsh/settings.zsh'],
   \ ['zshrc',      '~/.config/zsh/.zshrc'],
   \ ['profile',    '~/.config/shell/profile'],
   \ ['shortcutrc', '~/.config/shell/shortcutrc'],

@@ -24,6 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget
@@ -31,8 +32,8 @@ from libqtile.config import Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
 mod = "mod4"
-terminal = "alacritty"
-browser = "vieb"
+terminal = os.environ.get('TERMINAL')
+browser = os.environ.get('BROWSER')
 
 keys = [
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -85,15 +86,16 @@ keys = [
     Key([], "XF86AudioLowerVolume",
         lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -2%"),
         desc="Lower volume"),
+
+    Key([mod, "control"], "s", lazy.spawn("maim a.png")),
 ]
 
-groups = []
-groups.extend([
+groups = [
     Group('io', spawn='alacritty', layout='columns'),
     Group('www', spawn='vieb', layout='max'),
     Group('music', spawn=['spotify', 'alacritty -e spt'],
           layout='max'),
-])
+]
 
 keys.extend([
     Key([mod], "a", lazy.group['io'].toscreen(),
